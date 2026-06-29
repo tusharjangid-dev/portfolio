@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects Showcase | Tushar Jangid</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            orange: {
+              500: '#FF6B00',
+              600: '#E05E00',
+            }
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            space: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom CSS Variables for Seamless Theme Switching */
+    :root {
+      --bg-primary: #08080a;
+      --bg-secondary: #121215;
+      --text-primary: #f3f4f6;
+      --text-secondary: #9ca3af;
+      --accent: #ff6b00;
+      --accent-hover: #e05e00;
+      --accent-rgb: 255, 107, 0;
+      --card-bg: rgba(18, 18, 21, 0.6);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --glow-opacity: 0.15;
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f7f7f9;
+      --bg-secondary: #ffffff;
+      --text-primary: #111827;
+      --text-secondary: #4b5563;
+      --accent: #ff5500;
+      --accent-hover: #d44600;
+      --accent-rgb: 255, 85, 0;
+      --card-bg: rgba(255, 255, 255, 0.75);
+      --card-border: rgba(0, 0, 0, 0.08);
+      --glow-opacity: 0.05;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.4s ease, border-color 0.4s ease;
+      cursor: default;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .font-space {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 4px;
+    }
+
+    /* Glassmorphism Styles */
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+    }
+
+    .glass-nav {
+      background: rgba(8, 8, 10, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    [data-theme="light"] .glass-nav {
+      background: rgba(247, 247, 249, 0.7);
+    }
+
+    /* Glowing Text & Shadows */
+    .glow-text {
+      text-shadow: 0 0 15px rgba(var(--accent-rgb), 0.6);
+    }
+
+    .neon-border-glow:hover {
+      box-shadow: 0 0 25px rgba(var(--accent-rgb), 0.4);
+      border-color: var(--accent);
+    }
+
+    #particles-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+  </style>
+</head>
+
+<body class="antialiased">
+
+
+
+  <!-- Background Particle Canvas wrapper -->
+  <div class="fixed inset-0 w-full h-full overflow-hidden pointer-events-none" style="z-index: 0;">
+    <canvas id="particles-canvas"></canvas>
+    <div class="absolute top-[20%] left-[-10%] w-[40vw] h-[40vw] rounded-full bg-orange-500/10 blur-[120px]"></div>
+    <div class="absolute bottom-[20%] right-[-10%] w-[35vw] h-[35vw] rounded-full bg-orange-600/10 blur-[100px]"></div>
+  </div>
+
+  <div class="relative z-10 flex flex-col min-h-screen">
+
+    <!-- HEADER & NAVIGATION -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-nav transition-all duration-300 py-4">
+      <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+        <!-- Logo -->
+        <a href="/index.html" class="text-2xl font-bold font-space tracking-tight text-white hover-target flex items-center space-x-2">
+          <span class="text-orange-500">&lt;</span>
+          <span class="text-[var(--text-primary)]">Tushar</span>
+          <span class="text-orange-500">/&gt;</span>
+        </a>
+
+        <!-- Nav Links (Points back to Index anchor links or simple back button) -->
+        <nav class="hidden lg:flex items-center space-x-8">
+          <a href="/index.html" class="hover-target text-sm font-semibold tracking-wide hover:text-orange-500 transition-colors duration-300">Home</a>
+          <a href="/index.html#about" class="hover-target text-sm font-semibold tracking-wide hover:text-orange-500 transition-colors duration-300">About</a>
+          <a href="/index.html#skills" class="hover-target text-sm font-semibold tracking-wide hover:text-orange-500 transition-colors duration-300">Skills</a>
+          <a href="/index.html#pricing" class="hover-target text-sm font-semibold tracking-wide hover:text-orange-500 transition-colors duration-300">Pricing</a>
+          <a href="/index.html#process" class="hover-target text-sm font-semibold tracking-wide hover:text-orange-500 transition-colors duration-300">Process</a>
+          <a href="/index.html#testimonials" class="hover-target text-sm font-semibold tracking-wide hover:text-orange-500 transition-colors duration-300">Reviews</a>
+          <a href="/index.html#contact" class="hover-target text-sm font-semibold tracking-wide hover:text-orange-500 transition-colors duration-300">Contact</a>
+        </nav>
+
+        <!-- Controls -->
+        <div class="flex items-center space-x-4">
+          <!-- Theme Toggle -->
+          <button id="theme-toggle" class="hover-target p-2.5 rounded-full border border-[var(--card-border)] bg-[var(--card-bg)] text-[var(--text-primary)] hover:text-orange-500 hover:border-orange-500/30 transition-all duration-300 focus:outline-none" aria-label="Toggle Theme">
+            <i id="theme-icon" class="fa-solid fa-sun text-lg"></i>
+          </button>
+
+          <!-- Back Home CTA -->
+          <a href="/index.html" class="hover-target inline-flex px-6 py-2.5 rounded-full text-xs font-bold tracking-widest uppercase border border-orange-500 bg-orange-500/10 text-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300 shadow-md">
+            <i class="fa-solid fa-arrow-left mr-2 mt-0.5"></i> Back Home
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN PROJECTS CONTAINER -->
+    <main class="flex-grow pt-32 pb-24 px-6 relative">
+      <div class="max-w-7xl mx-auto">
+        
+        <!-- Header Section -->
+        <div class="flex flex-col items-center text-center space-y-4 mb-12">
+          <span class="text-xs font-bold uppercase tracking-widest text-orange-500">Portfolio</span>
+          <h1 class="text-4xl sm:text-5xl font-bold font-space text-[var(--text-primary)]">My Projects Gallery</h1>
+          <div class="w-16 h-1 bg-orange-500 rounded-full mb-2"></div>
+          <p class="text-sm sm:text-base text-[var(--text-secondary)] max-w-xl">
+            Explore a collection of websites, design implementations, and interface systems built using responsive frontend configurations.
+          </p>
+        </div>
+
+        <!-- SEARCH AND FILTER INTERFACE -->
+        <div class="glass-card rounded-2xl p-6 mb-12 border border-[var(--card-border)] flex flex-col md:flex-row items-center justify-between gap-6">
+          
+          <!-- Category Filter Pills -->
+          <div id="filter-container" class="flex flex-wrap gap-2.5 w-full md:w-auto justify-start">
+            <button data-filter="all" class="hover-target filter-btn active px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-orange-500 text-white transition-all duration-300">
+              All Works
+            </button>
+            <button data-filter="frontend" class="hover-target filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider border border-[var(--card-border)] bg-[var(--card-bg)] text-[var(--text-secondary)] hover:rgb(255 255 255) hover:border-orange-500/30 transition-all duration-300">
+              Frontend
+            </button>
+            <button data-filter="react" class="hover-target filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider border border-[var(--card-border)] bg-[var(--card-bg)] text-[var(--text-secondary)] hover:text-orange-500 hover:border-orange-500/30 transition-all duration-300">
+              React
+            </button>
+            <button data-filter="wordpress" class="hover-target filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider border border-[var(--card-border)] bg-[var(--card-bg)] text-[var(--text-secondary)] hover:rgb(255 255 255) hover:border-orange-500/30 transition-all duration-300">
+              WordPress
+            </button>
+            <button data-filter="shopify" class="hover-target filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider border border-[var(--card-border)] bg-[var(--card-bg)] text-[var(--text-secondary)] hover:rgb(255 255 255) hover:border-orange-500/30 transition-all duration-300">
+              Shopify
+            </button>
+          </div>
+
+          <!-- Dynamic Search Input -->
+          <div class="relative w-full md:w-72">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-[var(--text-secondary)]">
+              <i class="fa-solid fa-magnifying-glass text-xs"></i>
+            </span>
+            <input type="text" id="project-search" placeholder="Search projects or tools..." 
+              class="hover-target w-full bg-[var(--bg-primary)] border border-[var(--card-border)] rounded-full pl-10 pr-4 py-2 text-xs focus:outline-none focus:border-orange-500 text-[var(--text-primary)] transition-all duration-300">
+          </div>
+
+        </div>
+
+        <!-- DYNAMIC PROJECTS GRID -->
+        <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Projects generated via JavaScript dynamically populate here -->
+        </div>
+
+        <!-- Empty State UI -->
+        <div id="empty-state" class="hidden flex-col items-center justify-center text-center py-24 space-y-4">
+          <i class="fa-solid fa-folder-open text-5xl text-orange-500/40"></i>
+          <h3 class="text-lg font-bold font-space text-[var(--text-primary)]">No matching projects found</h3>
+          <p class="text-xs text-[var(--text-secondary)]">Try modifying your filters or search criteria.</p>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- PROJECT DISPLAY DETAILS MODAL -->
+    <div id="project-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden transition-opacity duration-300 opacity-0">
+      <div class="glass-card w-full max-w-2xl rounded-2xl border border-[var(--card-border)] overflow-hidden flex flex-col max-h-[90vh] transition-transform duration-300 scale-95">
+        
+        <!-- Modal Banner Photo -->
+        <div class="relative h-48 sm:h-64 bg-stone-900 overflow-hidden">
+          <img id="modal-img" src="/wordpress.png" alt="Project Cover" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+          <button id="close-modal" class="hover-target absolute top-4 right-4 w-10 h-10 rounded-full bg-black/60 border border-white/10 flex items-center justify-center text-white hover:text-orange-500 transition-colors duration-300">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <div class="absolute bottom-6 left-6">
+            <span id="modal-category" class="text-2xs font-bold tracking-wider text-orange-500 uppercase">CATEGORY</span>
+            <h3 id="modal-title" class="text-xl sm:text-2xl font-bold font-space text-white mt-1">Project Title</h3>
+          </div>
+        </div>
+
+        <!-- Modal Contents -->
+        <div class="p-6 sm:p-8 overflow-y-auto space-y-6">
+          <div>
+            <h4 class="text-xs uppercase tracking-wider text-[var(--text-secondary)] font-bold mb-2">Description</h4>
+            <p id="modal-desc" class="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
+              Detailed descriptions of your work structures populate dynamically here.
+            </p>
+          </div>
+
+          <div>
+            <h4 class="text-xs uppercase tracking-wider text-[var(--text-secondary)] font-bold mb-2.5">Key Features</h4>
+            <ul id="modal-features" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[var(--text-secondary)]">
+              <!-- Dynamically generated list -->
+            </ul>
+          </div>
+
+          <div class="border-t border-[var(--card-border)] pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <h4 class="text-xs uppercase tracking-wider text-[var(--text-secondary)] font-bold mb-2">Tech Stack</h4>
+              <div id="modal-tags" class="flex flex-wrap gap-1.5">
+                <!-- Badges will render here -->
+              </div>
+            </div>
+
+            <!-- CTA Action Links -->
+            <div class="flex items-center space-x-3 w-full sm:w-auto justify-end">
+              <a id="modal-demo" href="#" target="_blank" class="hover-target px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest bg-orange-500 hover:bg-orange-600 text-white transition-all duration-300 shadow-md">
+                Live Demo
+              </a>
+              <a id="modal-github" href="#" target="_blank" class="hover-target px-4 py-2.5 rounded-full border border-[var(--card-border)] text-[var(--text-secondary)] hover:text-white transition-all duration-300">
+                <i class="fa-brands fa-github text-base"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-[var(--card-border)] py-12 px-6 relative z-10 glass-card">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-center md:text-left">
+        <div>
+          <a href="index.html" class="text-xl font-bold font-space tracking-tight text-white hover-target flex items-center justify-center md:justify-start space-x-2">
+            <span class="text-orange-500">&lt;</span>
+            <span class="text-[var(--text-primary)]">Tushar</span>
+            <span class="text-orange-500">/&gt;</span>
+          </a>
+          <p class="text-3xs text-[var(--text-secondary)] mt-1">Premium modern web designs.</p>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-6">
+          <a href="index.html#hero" class="hover-target text-3xs font-semibold uppercase tracking-widest hover:text-orange-500 transition-colors">Home</a>
+          <a href="index.html#about" class="hover-target text-3xs font-semibold uppercase tracking-widest hover:text-orange-500 transition-colors">About</a>
+          <a href="index.html#skills" class="hover-target text-3xs font-semibold uppercase tracking-widest hover:text-orange-500 transition-colors">Skills</a>
+          <a href="index.html#pricing" class="hover-target text-3xs font-semibold uppercase tracking-widest hover:text-orange-500 transition-colors">Pricing</a>
+          <a href="index.html#contact" class="hover-target text-3xs font-semibold uppercase tracking-widest hover:text-orange-500 transition-colors">Contact</a>
+        </div>
+
+        <div class="text-3xs text-[var(--text-secondary)] font-medium">
+          &copy; 2026 Tushar Jangid. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+  <script>
+    // 1. DATASET FOR PROJECTS (Manage your projects array here)
+    const projectsData = [
+      {
+        id: 1,
+        title: "Modern Business Platform",
+        category: "frontend",
+        desc: "A frontend landing setup optimized with semantic components, smooth sliding galleries, animations, and fully interactive layouts.",
+        image: "/images/htmlcssjs.png",
+        tags: ["HTML5", "CSS3", "JavaScript", "Tailwind CSS"],
+        features: ["Fully Responsive across devices", "Highly Semantic structural base", "Dynamic interactive content structures", "SEO friendly asset placements"],
+        demoUrl: "#",
+        githubUrl: "#"
+      },
+      {
+        id: 2,
+        title: "Looan Guru - AI Learning Platform",
+        category: "wordpress",
+        image: "/images/looanguru.png",
+        desc: "A modern WordPress platform designed for AI-powered learning, offering personalized skill development, interactive content, and career-focused growth experiences.",
+        tags: ["WP", "Elm Pro"],
+        features: ["AI-based personalized learning system", "Lead generation focused design", "Responsive and modern UI", "Contact & inquiry forms integration"],
+        demoUrl: "https://looanguru.com/",
+        githubUrl: "#"
+      },
+       {
+        id: 3,
+        title: "Crafts & Jewel",
+        category: "wordpress",
+        desc: "A premium WooCommerce e-commerce store developed for showcasing handcrafted jewelry, gemstones, and artisan products with a seamless shopping experience and responsive design.",
+        image: "/images/craft&jewell.png",
+        tags: ["WP", "Elm Pro", "WooCommerce"],
+        features: ["Custom WooCommerce Store", "Product Catalog Management", "Dynamic category & product filtering", "Secure Checkout Integration" ,"Responsive Design", "Mobile-first shopping experience"],
+        demoUrl: "https://craftsandjewel.com/",
+        githubUrl: "#"
+      },
+      {
+        id: 4,
+        title: "Micaas",
+        category: "wordpress",
+        desc: "A modern WooCommerce store built for premium products with seamless shopping experience.",
+        image: "/images/micas.png",
+        tags: ["WP", "Elm Pro", "WooCommerce"],
+        features: ["Custom WooCommerce Store", "Product Catalog Management", "Dynamic category & product filtering", "Secure Checkout Integration" ,"Responsive Design", "Mobile-first shopping experience"],
+        demoUrl: "https://micaas.com/",
+        githubUrl: "#"
+      },
+      {
+        id: 5,
+        title: "Canvas & Wall",
+        category: "wordpress",
+        desc: "A modern WooCommerce store showcasing premium wall art, canvas prints, and wallpapers.",
+        image: "/images/canvas.png",
+        tags: ["WP", "Elm Pro", "WooCommerce"],
+        features: ["Custom WooCommerce Store", "Product Catalog Management", "Dynamic category & product filtering", "Wall Art & Canvas Collections" ,"Responsive Design", "Mobile-first shopping experience"],
+        demoUrl: "https://www.canvasandwall.co.za/",
+        githubUrl: "#"
+      },
+      {
+        id: 6,
+        title: "ABM Demand",
+        category: "wordpress",
+        desc: "A professional WordPress website designed for showcasing B2B lead generation and digital marketing services with a clean, conversion-focused layout.",
+        image: "/images/abmdemand.png",
+        tags: ["WP", "Elm Pro"],
+        features: ["Service-based business website", "Lead generation focused design", "Responsive and modern UI", "Contact & inquiry forms integration"],
+        demoUrl: "https://abmdemand.com/",
+        githubUrl: "#"
+      },
+      {
+        id: 7,
+        title: "Towel Trove",
+        category: "wordpress",
+        desc: "A modern WooCommerce store for premium towels and home essentials with clean shopping experience.",
+        image: "/images/toweltrove.png",
+        tags: ["WP", "Elm Pro"],
+        features: ["Service-based business website", "Lead generation focused design", "Responsive and modern UI", "Contact & inquiry forms integration"],
+        demoUrl: "https://toweltrove.com/",
+        githubUrl: "#"
+      },
+      {
+        id: 8,
+        title: "Angiplast Store",
+        category: "wordpress",
+        desc: "A professional WooCommerce medical e-commerce store offering high-quality disposable healthcare products and hospital supplies with direct-from-manufacturer pricing.",
+        image: "/images/angiplast.png",
+        tags: ["WP", "Elm Pro", "WooCommerce"],
+        features: ["Custom WooCommerce Store", "Product Catalog Management", "Dynamic category & product filtering", "Secure Checkout Integration" ,"Responsive Design", "Mobile-first shopping experience"],
+        demoUrl: "https://angiplaststore.com/",
+        githubUrl: "#"
+      },
+      {
+        id: 9,
+        title: "Sun Moon Timber",
+        category: "wordpress",
+        image: "/images/sunmoon_800x600.png",
+        desc: "A professional WooCommerce website for timber, plywood, and hardware products with a clean product showcase and enquiry-based shopping experience.",
+        image: "/images/sunmoon.png",
+        tags: ["WP", "Elm Pro"],
+        features: ["Service-based business website", "Lead generation focused design", "Responsive and modern UI", "Contact & inquiry forms integration"],
+        demoUrl: "https://sunmoontimber.com/",
+        githubUrl: "#"
+      },
+      {
+        id: 10,
+        title: "Label Radhira Fashion Store",
+        category: "wordpress",
+        desc: "A premium WooCommerce fashion store designed for modern ethnic wear collections, featuring handcrafted apparel, category-based product showcases, seamless shopping experiences, and responsive e-commerce functionality.",
+        image: "/images/labelradhira.png",
+        tags: ["WP", "Elm Pro", "WooCommerce"],
+        features: ["Custom WooCommerce product layouts", "Responsive fashion collection showcases", "Dynamic category & product filtering", "Secure cart and checkout integration" ,"Wishlist & quick view functionality", "Mobile-first shopping experience"],
+        demoUrl: "https://www.labelradhira.com/",
+        githubUrl: "#"
+      },
+      
+      {
+        id: 11,
+        title: "Puja Shah Fashion Store",
+        category: "shopify",
+        desc: "Luxury fashion e-commerce store built on Shopify with custom theme development, responsive design, and optimized shopping experiences.",
+        image: "/images/pujashah.png",
+        tags: ["Shopify Liquid", "JavaScript", "CSS"],
+        features: ["Custom Shopify Theme", "Responsive Design", "Collection Management", "Integrated responsive contact systems",""],
+        demoUrl: "https://www.pujashahs.com/",
+        githubUrl: "#"
+      },
+      {
+        id: 12,
+        title: "SwasthSetu Wellness Store",
+        category: "shopify",
+        desc: "A Shopify-based wellness and healthcare e-commerce store focused on natural health products, clean design, and a seamless shopping experience.",
+        image: "/images/swasthsetu.png",
+        tags: ["Shopify Liquid", "JavaScript", "CSS"],
+        features: ["Custom Shopify Theme Development", "Responsive Design", "Product Collection Management", "Shopify Liquid Customization"],
+        demoUrl: "https://swasthsetu.co.in/",
+        githubUrl: "#"
+      },
+      {
+        id: 13,
+        title: "Sadhana Siddhi",
+        category: "react",
+        desc: "A modern React-based spiritual services platform featuring astrology consultations, puja services, responsive design, and an optimized user experience.",
+        image: "/images/sadhanasiddhi.png",
+        tags: ["React JS", "JAVASCRIPT", "CSS3", "API INTEGRATION"],
+        features: ["React Component Architecture", "Responsive Design", "Dynamic Service Pages", "Fast Loading Performance"],
+        demoUrl: "https://sadhanasiddhi.com/",
+        githubUrl: "#"
+      },
+      {
+        id: 14,
+        title: "W2R Recycling",
+        category: "react",
+        desc: "Professional electronics repair platform built with React, providing schematic libraries, boardviews, device diagnostics tools, and technical resources for repair professionals.",
+        image: "/images/w2r.png",
+        tags: ["React JS", "JAVASCRIPT", "CSS3", "API INTEGRATION"],
+        features: ["React Component Architecture", "Advanced Search & Filtering", "Schematic & Boardview Library", "CPU Finder Integration" ,"Responsive UI/UX" ,"Performance Optimization"],
+        demoUrl: "https://w2r.co.in/",
+        githubUrl: "#"
+      },
+      {
+        id: 15,
+        title: "Moraa Jewels",
+        category: "react",
+        desc: "Luxury jewelry e-commerce platform built with React, delivering a premium shopping experience through elegant UI, dynamic product collections, and responsive performance.",
+        image: "/images/moraajewels.png",
+        tags: ["React JS", "JAVASCRIPT", "CSS3", "API"],
+        features: ["Custom React E-commerce Architecture", "Dynamic Product Collections", "Product Detail & Catalog Pages", "Responsive Mobile-First Design" ,"Shopping Cart & User Flow" ,"Premium Luxury UI/UX"],
+        demoUrl: "https://moraajewles.com/",
+        githubUrl: "#"
+      },
+      {
+        id: 16,
+        title: "dhughesconstruction",
+        category: "wordpress",
+        desc: "A modern Construction Website for premium construction services and home essentials with clean work experience.",
+        image: "/images/dhughesconstruction.png",
+        tags: ["WP", "Elm Pro"],
+        features: ["Service-based business website", "Lead generation focused design", "Responsive and modern UI", "Contact & inquiry forms integration"],
+        demoUrl: "https://quickwebsiteseo.com/dhughesconstruction/",
+        githubUrl: "#"
+      }
+    ];
+
+    // 2. RENDERING PROJECTS TO THE DOM
+    const grid = document.getElementById('projects-grid');
+    const emptyState = document.getElementById('empty-state');
+    const searchInput = document.getElementById('project-search');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+
+    let activeFilter = 'all';
+
+// URL se filter get karna
+const urlParams = new URLSearchParams(window.location.search);
+const filterFromUrl = urlParams.get('filter');
+
+if (filterFromUrl) {
+  activeFilter = filterFromUrl;
+}
+
+    let searchQuery = '';
+
+    function renderProjects() {
+      // Clear current grid contents
+      grid.innerHTML = '';
+
+      // Filter Logic
+      const filtered = projectsData.filter(project => {
+        const matchesCategory = activeFilter === 'all' || project.category === activeFilter;
+        const matchesSearch = project.title.toLowerCase().includes(searchQuery) || 
+                              project.tags.some(tag => tag.toLowerCase().includes(searchQuery));
+        return matchesCategory && matchesSearch;
+      });
+
+      // Handle Empty States
+      if (filtered.length === 0) {
+        emptyState.classList.replace('hidden', 'flex');
+      } else {
+        emptyState.classList.replace('flex', 'hidden');
+        
+        filtered.forEach(project => {
+          const card = document.createElement('div');
+          card.className = "hover-target glass-card rounded-2xl overflow-hidden border border-[var(--card-border)] hover:border-orange-500/30 transition-all duration-300 flex flex-col group hover:-translate-y-2 cursor-pointer";
+          card.onclick = () => openModal(project);
+
+          card.innerHTML = `
+            <div class="relative overflow-hidden h-48 bg-stone-900 flex items-center justify-center">
+              <img src="${project.image}" alt="${project.title}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+              <div class="absolute inset-0 bg-black/40"></div>
+            </div>
+            <div class="p-6 flex flex-col flex-grow">
+              <div class="flex items-center space-x-2 mb-2">
+                <span class="text-2xs font-bold tracking-wider text-orange-500 uppercase">${project.category.toUpperCase()}</span>
+              </div>
+              <h3 class="text-lg font-bold font-space text-[var(--text-primary)] mb-2 group-hover:text-orange-500 transition-colors duration-300">${project.title}</h3>
+              <p class="text-xs text-[var(--text-secondary)] mb-6 flex-grow line-clamp-3">${project.desc}</p>
+              <div class="flex items-center justify-between border-t border-[var(--card-border)] pt-4 mt-auto">
+                <span class="text-[13px] font-semibold text-[var(--text-secondary)] uppercase">${project.tags.slice(0, 3).join(' • ')}</span>
+                <span class="text-xs text-orange-500 hover:text-orange-600 font-bold flex items-center gap-1">
+                  View Details <i class="fa-solid fa-arrow-right text-[10px] transition-transform group-hover:translate-x-1"></i>
+                </span>
+              </div>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      }
+    }
+
+    // 3. SEARCH AND FILTER EVENT LISTENERS
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        filterBtns.forEach(b => {
+          b.classList.remove('active', 'bg-orange-500', 'text-white');
+          b.classList.add('border-[var(--card-border)]', 'bg-[var(--card-bg)]', 'text-[var(--text-secondary)]');
+        });
+        
+        e.target.classList.add('active', 'bg-orange-500', 'text-white');
+        e.target.classList.remove('border-[var(--card-border)]', 'bg-[var(--card-bg)]', 'text-[var(--text-secondary)]');
+        
+        activeFilter = e.target.getAttribute('data-filter');
+        renderProjects();
+      });
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.toLowerCase();
+      renderProjects();
+    });
+
+    // 4. MODAL LOGIC
+    const modal = document.getElementById('project-modal');
+    const modalContent = modal.querySelector('.glass-card');
+    const modalImg = document.getElementById('modal-img');
+    const modalCategory = document.getElementById('modal-category');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalFeatures = document.getElementById('modal-features');
+    const modalTags = document.getElementById('modal-tags');
+    const modalDemo = document.getElementById('modal-demo');
+    const modalGithub = document.getElementById('modal-github');
+    const closeModalBtn = document.getElementById('close-modal');
+
+    function openModal(project) {
+      modalImg.src = project.image;
+      modalCategory.innerText = project.category.toUpperCase();
+      modalTitle.innerText = project.title;
+      modalDesc.innerText = project.desc;
+
+      // Populate features
+      modalFeatures.innerHTML = '';
+      project.features.forEach(feat => {
+        const li = document.createElement('li');
+        li.className = 'flex items-center space-x-2';
+        li.innerHTML = `<i class="fa-solid fa-check text-orange-500 text-2xs"></i> <span>${feat}</span>`;
+        modalFeatures.appendChild(li);
+      });
+
+      // Populate tags
+      modalTags.innerHTML = '';
+      project.tags.forEach(tag => {
+        const span = document.createElement('span');
+        span.className = 'text-3xs font-mono font-bold text-orange-500 bg-orange-500/10 px-2 py-1 rounded';
+        span.innerText = tag;
+        modalTags.appendChild(span);
+      });
+
+      // Update CTA Links
+      modalDemo.href = project.demoUrl;
+      modalGithub.href = project.githubUrl;
+      
+
+      // Show Modal animation
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.replace('opacity-0', 'opacity-100');
+        modalContent.classList.replace('scale-95', 'scale-100');
+      }, 10);
+    }
+
+    function closeModal() {
+      modal.classList.replace('opacity-100', 'opacity-0');
+      modalContent.classList.replace('scale-100', 'scale-95');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 300);
+    }
+
+    closeModalBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+  
+
+    // 6. DYNAMIC TEXT THEME SWAPPING SYNC
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const htmlElement = document.documentElement;
+
+    const savedTheme = localStorage.getItem('theme');
+
+if (savedTheme) {
+  htmlElement.setAttribute('data-theme', savedTheme);
+}
+
+  themeToggle.addEventListener('click', () => {
+  const currentTheme = htmlElement.getAttribute('data-theme');
+
+  if (currentTheme === 'dark') {
+    htmlElement.setAttribute('data-theme', 'light');
+    localStorage.setItem('theme', 'light');
+    themeIcon.classList.replace('fa-sun', 'fa-moon');
+  } else {
+    htmlElement.setAttribute('data-theme', 'dark');
+    localStorage.setItem('theme', 'dark');
+    themeIcon.classList.replace('fa-moon', 'fa-sun');
+  }
+});
+
+    // 7. PARTICLES BACKGROUND CANVAS
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let particlesArray = [];
+    const numParticles = 35;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = (Math.random() - 0.5) * 0.4;
+        this.speedY = (Math.random() - 0.5) * 0.4;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+      draw() {
+        const isDark = htmlElement.getAttribute('data-theme') === 'dark';
+        ctx.fillStyle = isDark ? 'rgba(255, 107, 0, 0.4)' : 'rgba(255, 85, 0, 0.25)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particlesArray = [];
+      for (let i = 0; i < numParticles; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      const isDark = htmlElement.getAttribute('data-theme') === 'dark';
+      for (let a = 0; a < particlesArray.length; a++) {
+        for (let b = a; b < particlesArray.length; b++) {
+          let dx = particlesArray[a].x - particlesArray[b].x;
+          let dy = particlesArray[a].y - particlesArray[b].y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 120) {
+            let opacity = (1 - (distance / 120)) * (isDark ? 0.08 : 0.04);
+            ctx.strokeStyle = `rgba(255, 107, 0, ${opacity})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateParticles);
+    }
+
+    // Initial Setup executions
+    document.addEventListener('DOMContentLoaded', () => {
+
+  // Active button set karna
+  filterBtns.forEach(btn => {
+
+    btn.classList.remove(
+      'active',
+      'bg-orange-500',
+      'text-white'
+    );
+
+    btn.classList.add(
+      'border-[var(--card-border)]',
+      'bg-[var(--card-bg)]',
+      'text-[var(--text-secondary)]'
+    );
+
+    // URL wale filter ko active banana
+    if (btn.getAttribute('data-filter') === activeFilter) {
+
+      btn.classList.add(
+        'active',
+        'bg-orange-500',
+        'text-white'
+      );
+
+      btn.classList.remove(
+        'border-[var(--card-border)]',
+        'bg-[var(--card-bg)]',
+        'text-[var(--text-secondary)]'
+      );
+    }
+  });
+
+  initParticles();
+  animateParticles();
+  renderProjects();
+});
+  </script>
+</body>
+
+</html>
